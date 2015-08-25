@@ -3,8 +3,4 @@
 
 using namespace std;
 
-IntMatrix::IntMatrix()
-{
-	rows = 2;
 
-}
