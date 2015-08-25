@@ -28,13 +28,14 @@ public:
 	 * @param rows The number of rows in the matrix.
 	 * @param cols The number of columns in the matrix.
 	 */
-	IntMatrix(const int rows, const int cols);
+	IntMatrix(const int _rows, const int _cols);
+
 
 	/**
 	 * @brief The '=' operator.
 	 * @param other The matrix to use on the right side of the '='.
 	 */
-	IntMatrix& operator=(IntMatrix& other);
+	IntMatrix& operator=(const IntMatrix& other);
 
 private:
 	int _rows; /* the number of rows of the matrix. */
