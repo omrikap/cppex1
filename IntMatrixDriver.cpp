@@ -1,4 +1,7 @@
-//
-// Created by Omri on 8/24/2015.
-//
+#include "IntMatrix.h"
 
+int main()
+{
+	
+	return 0;
+}

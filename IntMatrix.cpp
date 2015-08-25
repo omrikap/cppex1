@@ -11,6 +11,18 @@ IntMatrix::IntMatrix() // toTest
 	cout << "++ a new matrix" << endl;
 }
 
+IntMatrix::IntMatrix(const int rows, const int cols) // toTest
+{
+	_rows = rows;
+	_cols = cols;
+	_matrix = new int[_rows * _cols];
+	int arraySize = _rows * _cols;
+	for (int i = 0; i < arraySize; ++i)
+	{
+		_matrix[i] = 0;
+	}
+}
+
 IntMatrix::IntMatrix(IntMatrix &other) // toTest
 {
 	if (other._matrix != nullptr)
@@ -99,6 +111,22 @@ IntMatrix &IntMatrix::operator-=(const IntMatrix &other) // toTest todo more che
 	}
 
 	return *this;
+}
+
+IntMatrix &IntMatrix::operator+(const IntMatrix &left, const IntMatrix &right) // toTest todo more checks?
+{
+	IntMatrix *result = new IntMatrix(left.get_rows(), left.get_cols());
+	*result += left;
+	*result += right;
+	return *result;
+}
+
+IntMatrix &IntMatrix::operator-(const IntMatrix &left, const IntMatrix &right) // toTest todo more checks?
+{
+	IntMatrix *result = new IntMatrix(left.get_rows(), left.get_cols());
+	*result += left;
+	*result -= right;
+	return *result;
 }
 
 int IntMatrix::trace()

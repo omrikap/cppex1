@@ -24,6 +24,14 @@ public:
 	~IntMatrix();
 
 	/**
+	 * @brief A constructor for the binary arithmetic operators. Creates a zero matrix from the
+	 * 		  given row and column size.
+	 * @param rows The number of rows for the matrix.
+	 * @param cols The number of columns for the matrix.
+	 */
+	IntMatrix(const int rows, const int cols);
+
+	/**
 	 * @brief IntMatrix constructor.
 	 * @param rows The number of rows in the matrix.
 	 * @param cols The number of columns in the matrix.
@@ -34,7 +42,7 @@ public:
 	 * @brief The '=' operator.
 	 * @param other The matrix to use on the right side of the '='.
 	 */
-	IntMatrix& operator=(const IntMatrix& other);
+	IntMatrix& operator=(const IntMatrix &other);
 
 	/**
 	 * @brief IntMatrix compound addition operator.
@@ -55,18 +63,26 @@ public:
 	IntMatrix& operator-=(const IntMatrix &other);
 
 	/**
+	 * @brief The addition operator. Calculates the sum of two matrices.
+	 * @param left The matrix on the left of the '+'.
+	 * @param right The matrix on the right of the '+'.
+	 */
+	IntMatrix& operator+(const IntMatrix &left, const IntMatrix &right);
+
+	/**
+	 * @brief The subtraction operator. Calculates the difference between two matrices.
+	 * @param left The matrix on the left of the '-'.
+	 * @param right The matrix on the right of the '-'.
+	 */
+	IntMatrix& operator-(const IntMatrix &left, const IntMatrix &right);
+
+	/**
 	 * @brief Calculate the trace of a square matrix. Behavior for non-sqare matrices is
 	 * 		  undefined.
 	 * @return int The trace of the calling matrix.
 	 */
 	int trace();
 
-private:
-	int _rows; /* the number of rows of the matrix. */
-	int _cols; /* the number of columns of the matrix. */
-	int *_matrix; /* A pointer to the int array of the matrix. */
-
-public:
 	int get_rows() const
 	{
 		return _rows;
@@ -91,6 +107,11 @@ public:
 	{
 		return _matrix;
 	}
+
+private:
+	int _rows; /* the number of rows of the matrix. */
+	int _cols; /* the number of columns of the matrix. */
+	int *_matrix; /* A pointer to the int array of the matrix. */
 };
 
 #endif //EX1_INTMATRIX_H
