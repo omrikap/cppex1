@@ -3,7 +3,7 @@
 
 using namespace std;
 
-IntMatrix::IntMatrix()
+IntMatrix::IntMatrix() // toTest
 {
 	_rows = 0;
 	_cols = 0;
@@ -11,7 +11,29 @@ IntMatrix::IntMatrix()
 	cout << "++ a new matrix" << endl;
 }
 
-IntMatrix::IntMatrix(const int _rows, const int _cols)
+IntMatrix::IntMatrix(IntMatrix &other) // toTest
+{
+	if (other._matrix != nullptr)
+	{
+		if ((_rows * _cols) != (other._rows * other._cols))
+		{
+			delete[] _matrix;
+			_matrix = nullptr;
+		}
+	}
+	else
+	{
+		_matrix = new int[other._rows * other._cols];
+	}
+	_rows = other._rows;
+	_cols = other._cols;
+	for (int i = 0; i < (_rows * _cols); ++i)
+	{
+		_matrix[i] = other._matrix[i];
+	}
+}
+
+IntMatrix::IntMatrix(const int _rows, const int _cols) // toTest
 {
 	this->_rows = _rows;
 	this->_cols = _cols;
@@ -19,7 +41,7 @@ IntMatrix::IntMatrix(const int _rows, const int _cols)
 	cout << "++ a new matrix of " << this->_rows << " on " << this->_cols << endl; // todo remove
 }
 
-IntMatrix::~IntMatrix()
+IntMatrix::~IntMatrix() //toTest
 {
 	if (_matrix != nullptr)
 	{
@@ -29,24 +51,33 @@ IntMatrix::~IntMatrix()
 	cout << "-- matrix destroied" << endl; // todo remove
 }
 
-IntMatrix::IntMatrix(IntMatrix &other)
+IntMatrix& IntMatrix::operator=(const IntMatrix &other) // toTest
 {
-	_rows = other._rows;
-	_cols = other._cols;
-
+	if (this == &other)
+	{
+		return *this;
+	}
+	if (_matrix != nullptr)
+	{
+		if ((other._rows * other._cols) != (this->_rows * this->_cols))
+		{
+			delete[] _matrix;
+			_matrix = new int[other._rows * other._rows];
+		}
+	}
+	this->_rows = other._rows;
+	this->_cols = other._cols;
+	int matrixArrayLength = other._rows * other._rows;
+	for (int i = 0; i < matrixArrayLength; ++i)
+	{
+		_matrix[i] = other._matrix[i];
+	}
+	return *this;
 }
 
 
-//IntMatrix &IntMatrix::operator=(const IntMatrix &other)
-//{
-//	if ((other._rows * other._cols) == (this->_rows * this->_cols))
-//	{
-//		this->_rows = other._rows;
-//		this->_cols = other._cols;
-//	}
-//
-//	return IntMatrix(other._rows, );
-//}
+
+// ---------------------------------- unit-testing --------------------------------------
 
 #ifndef NDEBUG
 
