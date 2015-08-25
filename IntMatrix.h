@@ -19,7 +19,7 @@ public:
 	IntMatrix(IntMatrix other);
 
 	/**
-	 *
+	 * @brief A destructor.
 	 */
 	~IntMatrix();
 
