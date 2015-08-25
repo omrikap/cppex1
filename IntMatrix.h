@@ -13,6 +13,12 @@ public:
 	IntMatrix(); // todo
 
 	/**
+	 * @brief A copy constructor.
+	 * @param other The matrix to copy.
+	 */
+	IntMatrix(IntMatrix other);
+
+	/**
 	 *
 	 */
 	~IntMatrix();
@@ -25,17 +31,17 @@ private:
 	/**
 	 *
 	 */
-	int rows;
+	int _rows;
 
 	/**
 	 *
 	 */
-	int cols;
+	int _cols;
 
 	/**
 	 *
 	 */
-	int *matrix;
+	int *_matrix;
 };
 
 #endif //EX1_INTMATRIX_H
