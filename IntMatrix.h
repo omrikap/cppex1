@@ -16,7 +16,7 @@ public:
 	 * @brief A copy constructor.
 	 * @param other The matrix to copy.
 	 */
-	IntMatrix(IntMatrix& other);
+	IntMatrix(const IntMatrix& other);
 
 	/**
 	 * @brief A destructor.
@@ -73,17 +73,28 @@ public:
 
 	/**
 	 * @brief The addition operator. Calculates the sum of two matrices.
-	 * @param left The matrix on the left of the '+'.
 	 * @param right The matrix on the right of the '+'.
 	 */
 	const IntMatrix operator+(const IntMatrix &other);
 
 	/**
 	 * @brief The subtraction operator. Calculates the difference between two matrices.
-	 * @param left The matrix on the left of the '-'.
 	 * @param right The matrix on the right of the '-'.
 	 */
 	const IntMatrix operator-(const IntMatrix &other);
+
+	/**
+	 * @brief The multiplication operator. Calculates the product of two matrices.
+	 * @param other The matrix on the right of the '*'.
+	 */
+	const IntMatrix operator*(const IntMatrix &other);
+
+	/**
+	 * @brief Transpose an IntMatrix.
+	 * @param matrix The matrix to transpose.
+	 * @return A new IntMatrix instance which is the transposition of the given matrix.
+	 */
+	IntMatrix trans();
 
 	/**
 	 * @brief Calculate the trace of a square matrix. Behavior for non-sqare matrices is

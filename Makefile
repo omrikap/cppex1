@@ -4,7 +4,7 @@ FLAGS = -std=c++11 -Wextra -Wall
 
 #make IntMatrix
 IntMatrix: IntMatrix.cpp IntMatrix.h
-	$(CPPC) $(FLAGS) -c IntMatrix.cpp -o IntMatrix.o
+	$(CPPC) $(FLAGS) -c -DNDEBUG IntMatrix.cpp -o IntMatrix.o
 
 #make IntMatrixDriver
 IntMatrixDriver: IntMatrix.o IntMatrixDriver.cpp

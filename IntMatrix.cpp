@@ -3,7 +3,7 @@
 
 using namespace std;
 
-IntMatrix::IntMatrix() // toTest
+IntMatrix::IntMatrix()
 {
 	_rows = 0;
 	_cols = 0;
@@ -11,7 +11,7 @@ IntMatrix::IntMatrix() // toTest
 	cout << "++ a new matrix" << endl;
 }
 
-IntMatrix::IntMatrix(const int rows, const int cols) // toTest
+IntMatrix::IntMatrix(const int rows, const int cols)
 {
 	_rows = rows;
 	_cols = cols;
@@ -23,38 +23,26 @@ IntMatrix::IntMatrix(const int rows, const int cols) // toTest
 	}
 }
 
-IntMatrix::IntMatrix(IntMatrix &other) // toTest
+IntMatrix::IntMatrix(const IntMatrix &other)
 {
-	if (other._matrix != nullptr)
-	{
-		if ((_rows * _cols) != (other._rows * other._cols))
-		{
-			delete[] _matrix;
-			_matrix = nullptr;
-		}
-	}
-	else
-	{
-		_matrix = new int[other._rows * other._cols];
-	}
 	_rows = other._rows;
 	_cols = other._cols;
+	_matrix = new int[_rows * _cols];
 	for (int i = 0; i < (_rows * _cols); ++i)
 	{
 		_matrix[i] = other._matrix[i];
 	}
 }
 
-IntMatrix::IntMatrix(const int rows, const int cols, int* matrixArray) // toTest
+IntMatrix::IntMatrix(const int rows, const int cols, int* matrixArray)
 {
-	this->_rows = rows;
-	this->_cols = cols;
-	this->_matrix = new int[rows * cols];
-	this->_matrix = matrixArray;
+	_rows = rows;
+	_cols = cols;
+	_matrix = matrixArray;
 	cout << "++ a new matrix of " << this->_rows << " on " << this->_cols << endl; // todo remove
 }
 
-IntMatrix::~IntMatrix() //toTest
+IntMatrix::~IntMatrix()
 {
 	if (_matrix != nullptr)
 	{
@@ -64,7 +52,7 @@ IntMatrix::~IntMatrix() //toTest
 	cout << "-- matrix destroied" << endl; // todo remove
 }
 
-IntMatrix& IntMatrix::operator=(const IntMatrix &other) // toTest
+IntMatrix& IntMatrix::operator=(const IntMatrix &other)
 {
 	if (this != &other) // in case of self assignment, just return the same object.
 	{
@@ -91,7 +79,7 @@ IntMatrix& IntMatrix::operator=(const IntMatrix &other) // toTest
 	return *this;
 }
 
-IntMatrix &IntMatrix::operator+=(const IntMatrix &other) // toTest todo more checks?
+IntMatrix &IntMatrix::operator+=(const IntMatrix &other)
 {
 	int matrixArrayLength = _rows * _cols;
 	for (int i = 0; i < matrixArrayLength; ++i)
@@ -102,7 +90,7 @@ IntMatrix &IntMatrix::operator+=(const IntMatrix &other) // toTest todo more che
 	return *this;
 }
 
-IntMatrix &IntMatrix::operator-=(const IntMatrix &other) // toTest todo more checks?
+IntMatrix &IntMatrix::operator-=(const IntMatrix &other)
 {
 	int matrixArrayLength = _rows * _cols;
 	for (int i = 0; i < matrixArrayLength; ++i)
@@ -113,10 +101,9 @@ IntMatrix &IntMatrix::operator-=(const IntMatrix &other) // toTest todo more che
 	return *this;
 }
 
-IntMatrix &IntMatrix::operator*=(const IntMatrix &other) // toTest todo more checks?
+IntMatrix &IntMatrix::operator*=(const IntMatrix &other)
 {
 	int *newMatrix = new int[_rows * other._cols];
-
 	for (int row = 0; row < _rows; ++row)
 	{
 		for (int otherCol = 0; otherCol < other._cols; ++otherCol)
@@ -136,18 +123,39 @@ IntMatrix &IntMatrix::operator*=(const IntMatrix &other) // toTest todo more che
 	return *this;
 }
 
-const IntMatrix IntMatrix::operator+(const IntMatrix &other) // toTest todo more checks?
+const IntMatrix IntMatrix::operator+(const IntMatrix &other)
 {
 	IntMatrix result = *this;
 	result += other;
 	return result;
 }
 
-const IntMatrix IntMatrix::operator-(const IntMatrix &other) // toTest todo more checks?
+const IntMatrix IntMatrix::operator-(const IntMatrix &other)
 {
 	IntMatrix result = *this;
 	result -= other;
 	return result;
+}
+
+const IntMatrix IntMatrix::operator*(const IntMatrix &other)
+{
+	IntMatrix result = *this;
+	result -= other;
+	return result;
+}
+
+IntMatrix IntMatrix::trans()
+{
+	int *transposed = new int[_rows * _cols];
+	for (int row = 0; row < _rows; ++row)
+	{
+		for (int col = 0; col < _cols; ++col)
+		{
+			transposed[(col * _cols) + row] = _matrix[(row * _cols) + col];
+		}
+	}
+	IntMatrix *result = new IntMatrix(_rows, _cols, transposed);
+	return *result;
 }
 
 int IntMatrix::trace()
@@ -198,18 +206,26 @@ int main()
 	IntMatrix *S2 = new IntMatrix(2, 2, secArray);
 
 	IntMatrix& Sr = *S1;
-
+	cout << "----------------------------" << endl;
 	printMatrix(*S1);
+	cout << "----------------------------" << endl;
 	printMatrix(*S2);
-
+	cout << "----------------------------" << endl;
 	printMatrix(Sr);
 	*S1 *= *S2;
-
+	cout << "----------------------------" << endl;
 	printMatrix(*S1);
-
 	cout << "the trace of S1: " << S1->trace() << endl;
+	cout << "----------------------------" << endl;
+//	IntMatrix *transposed = new IntMatrix();
+//	cout << "----------------------------" << endl;
+	IntMatrix transposed = Sr.trans();
+	cout << "----------------------------" << endl;
+	printMatrix(transposed);
+	cout << "----------------------------" << endl;
 	delete S1;
 	delete S2;
+	delete &transposed;
 
 	return 0;
 }
