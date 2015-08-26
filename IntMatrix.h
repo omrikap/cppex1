@@ -1,5 +1,6 @@
 #ifndef EX1_INTMATRIX_H
 #define EX1_INTMATRIX_H
+#define NDEBUG //todo remove
 
 /**
  * A class that represent a matrix of integers.

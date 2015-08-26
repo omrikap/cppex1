@@ -39,7 +39,6 @@ IntMatrix::IntMatrix(const int rows, const int cols, int* matrixArray)
 	_rows = rows;
 	_cols = cols;
 	_matrix = matrixArray;
-	cout << "++ a new matrix of " << this->_rows << " on " << this->_cols << endl; // todo remove
 }
 
 IntMatrix::~IntMatrix()
@@ -47,9 +46,7 @@ IntMatrix::~IntMatrix()
 	if (_matrix != nullptr)
 	{
 		delete[] _matrix;
-		cout << "-- array destroied" << endl; // todo remove
 	}
-	cout << "-- matrix destroied" << endl; // todo remove
 }
 
 IntMatrix& IntMatrix::operator=(const IntMatrix &other)
@@ -140,7 +137,7 @@ const IntMatrix IntMatrix::operator-(const IntMatrix &other)
 const IntMatrix IntMatrix::operator*(const IntMatrix &other)
 {
 	IntMatrix result = *this;
-	result -= other;
+	result *= other;
 	return result;
 }
 
