@@ -63,18 +63,27 @@ public:
 	IntMatrix& operator-=(const IntMatrix &other);
 
 	/**
+ * @brief IntMatrix compound multiplication operator.
+ * @param other The matrix on the right hand side of the operator. Will be multiplied (from
+ * 				the right) with the matrix on the left hand side.
+ * @return A reference to the calling matrix (the matrix on the left hand side of the
+ * 		   operator).
+ */
+	IntMatrix& operator*=(const IntMatrix &other);
+
+	/**
 	 * @brief The addition operator. Calculates the sum of two matrices.
 	 * @param left The matrix on the left of the '+'.
 	 * @param right The matrix on the right of the '+'.
 	 */
-	IntMatrix& operator+(const IntMatrix &left, const IntMatrix &right);
+	const IntMatrix operator+(const IntMatrix &other);
 
 	/**
 	 * @brief The subtraction operator. Calculates the difference between two matrices.
 	 * @param left The matrix on the left of the '-'.
 	 * @param right The matrix on the right of the '-'.
 	 */
-	IntMatrix& operator-(const IntMatrix &left, const IntMatrix &right);
+	const IntMatrix operator-(const IntMatrix &other);
 
 	/**
 	 * @brief Calculate the trace of a square matrix. Behavior for non-sqare matrices is

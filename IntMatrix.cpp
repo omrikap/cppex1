@@ -113,20 +113,41 @@ IntMatrix &IntMatrix::operator-=(const IntMatrix &other) // toTest todo more che
 	return *this;
 }
 
-IntMatrix &IntMatrix::operator+(const IntMatrix &left, const IntMatrix &right) // toTest todo more checks?
+IntMatrix &IntMatrix::operator*=(const IntMatrix &other) // toTest todo more checks?
 {
-	IntMatrix *result = new IntMatrix(left.get_rows(), left.get_cols());
-	*result += left;
-	*result += right;
-	return *result;
+	int *newMatrix = new int[_rows * other._cols];
+
+	for (int row = 0; row < _rows; ++row)
+	{
+		for (int otherCol = 0; otherCol < other._cols; ++otherCol)
+		{
+			int dotProduct = 0;
+			for (int col = 0; col < _cols; ++col)
+			{
+				dotProduct += _matrix[(row * _cols) + col] * other._matrix[(col * other._cols) +
+						otherCol];
+			}
+			newMatrix[row * _rows + otherCol] = dotProduct;
+		}
+	}
+	delete[] _matrix;
+	_matrix = newMatrix;
+	_cols = other._cols;
+	return *this;
 }
 
-IntMatrix &IntMatrix::operator-(const IntMatrix &left, const IntMatrix &right) // toTest todo more checks?
+const IntMatrix IntMatrix::operator+(const IntMatrix &other) // toTest todo more checks?
 {
-	IntMatrix *result = new IntMatrix(left.get_rows(), left.get_cols());
-	*result += left;
-	*result -= right;
-	return *result;
+	IntMatrix result = *this;
+	result += other;
+	return result;
+}
+
+const IntMatrix IntMatrix::operator-(const IntMatrix &other) // toTest todo more checks?
+{
+	IntMatrix result = *this;
+	result -= other;
+	return result;
 }
 
 int IntMatrix::trace()
@@ -171,14 +192,18 @@ int main()
 	secArray[1] = 3;
 	secArray[2] = 9;
 	secArray[3] = 7;
+
 	IntMatrix *S1 = new IntMatrix(2, 2, firstArray);
 
 	IntMatrix *S2 = new IntMatrix(2, 2, secArray);
 
 	IntMatrix& Sr = *S1;
 
+	printMatrix(*S1);
+	printMatrix(*S2);
+
 	printMatrix(Sr);
-	*S1 += *S2;
+	*S1 *= *S2;
 
 	printMatrix(*S1);
 
