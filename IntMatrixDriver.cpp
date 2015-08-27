@@ -20,6 +20,11 @@ void printResult(const IntMatrix &result)
 	cout << "==========\nResulted matrix:\n" << result << endl;
 }
 
+void gotMatrix(IntMatrix &matrix)
+{
+	cout << "--------\ngot matrix:\n" << matrix << endl;
+}
+
 void printDimensionsError(string op)
 {
 	cout << "ERROR: " << op << " faild - different dimensions." << endl;
@@ -91,6 +96,7 @@ void binaryFunction(string op, int uc)
 	cout << "Insert second matrix:" << endl;
 	IntMatrix right = getMatrix();
 	IntMatrix result = IntMatrix();
+	binaryOperatorPrintMatrices(left, right);
 	switch (uc)
 	{
 		case ADD:
@@ -124,9 +130,8 @@ void binaryFunction(string op, int uc)
 			}
 			break;
 		default:
-			break; //fixme
+			break;
 	}
-	binaryOperatorPrintMatrices(left, right);
 	printResult(result);
 }
 
@@ -135,8 +140,9 @@ void binaryFunction(string op, int uc)
  */
 void unaryFunction(string op, int uc) // todo update print
 {
-	cout << "Operation " << op << " requires 1 operand matrix.\nInsert first matrix:" << endl;
+	cout << "Operation " << op << " requires 1 operand matrix." << endl;
 	IntMatrix matrix = getMatrix();
+	gotMatrix(matrix);
 	IntMatrix result = IntMatrix();
 	switch (uc)
 	{
@@ -155,9 +161,6 @@ void unaryFunction(string op, int uc) // todo update print
 				cout << "The matrix is square and its trace is " << matrix.trace() << endl;
 			}
 			break;
-
-//		default:
-//			break; // fixme
 	}
 }
 
@@ -181,8 +184,6 @@ int main()
 		case TRACE:
 			unaryFunction("trace", TRACE);
 			break;
-//		default:
-//			break; // fixme
 	}
 	return 0;
 }
