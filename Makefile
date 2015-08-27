@@ -3,6 +3,11 @@ FLAGS = -Wall -Wextra
 
 .PHONY: tar all clean IntMatrix
 
+# when calling make with no arguments
+main: IntMakeMainDriver
+
+all: tar IntMatrixDriver
+
 IntMatrixMainDriver: IntMatrix IntMatrixDriver.cpp
 	$(CPPC) $(FLAGS) IntMatrix.o IntMatrixDriver.cpp -o IntMatrixMainDriver
 
@@ -11,11 +16,6 @@ IntMatrix: IntMatrix.cpp IntMatrix.h
 
 tar: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
 	tar cvf ex1.tar IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
-
-all: IntMatrixDriver tar
-
-# when calling make with no arguments
-main: IntMakeMainDriver
 
 #make clean
 clean:
