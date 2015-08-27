@@ -1,3 +1,5 @@
+// IntMatrix.h
+
 #ifndef EX1_INTMATRIX_H
 #define EX1_INTMATRIX_H
 
@@ -116,19 +118,13 @@ public:
 	 * @brief rows getter.
 	 * @return int Number of rows.
 	 */
-	int getRows() const
-	{
-		return _rows;
-	}
+	int getRows();
 
 	/**
 	 * @brief cols getter.
 	 * @return int Number of rows.
 	 */
-	int getCols() const
-	{
-		return _cols;
-	}
+	int getCols();
 
 private:
 	int _rows; /* the number of rows of the matrix. */

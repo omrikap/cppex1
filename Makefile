@@ -1,7 +1,7 @@
 CPPC = g++ -std=c++11
 FLAGS = -Wall -Wextra
 
-.PHONY: tar all clean IntMatrix
+.PHONY: tar all clean IntMatrix valgrind
 
 # when calling make with no arguments
 main: IntMakeMainDriver
@@ -24,3 +24,7 @@ tar: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
 # clean all files created by make.
 clean:
 	rm -f *.o ex1.tar IntMatrixMainDriver
+
+# debug with valgrind
+valgrind: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp
+	$(CPPC) $(FLAGS) -g IntMatrix.cpp IntMatrixDriver.cpp -o dbgIntMatrixMainDriver

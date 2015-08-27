@@ -1,15 +1,29 @@
 #include "IntMatrix.h"
 #include <iostream>
 
+//------------------------------------------------------------------------------------------------
+// Implementations for the IntMatrix class follows
+//------------------------------------------------------------------------------------------------
+
+#define NONE 0
+
 using namespace std;
 
+//------------------------------------- constructors ---------------------------------------------
+
+/**
+ * @brief Documented in header file
+ */
 IntMatrix::IntMatrix()
 {
-	_rows = 0;
-	_cols = 0;
+	_rows = NONE;
+	_cols = NONE;
 	_matrix = nullptr;
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix::IntMatrix(const int rows, const int cols)
 {
 	_rows = rows;
@@ -22,6 +36,9 @@ IntMatrix::IntMatrix(const int rows, const int cols)
 	}
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix::IntMatrix(const IntMatrix &other)
 {
 	_rows = other._rows;
@@ -33,6 +50,9 @@ IntMatrix::IntMatrix(const IntMatrix &other)
 	}
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix::IntMatrix(const int rows, const int cols, int* matrixArray)
 {
 	_rows = rows;
@@ -40,6 +60,9 @@ IntMatrix::IntMatrix(const int rows, const int cols, int* matrixArray)
 	_matrix = matrixArray;
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix::~IntMatrix()
 {
 	if (_matrix != nullptr)
@@ -48,6 +71,11 @@ IntMatrix::~IntMatrix()
 	}
 }
 
+//-------------------------------------- operators -----------------------------------------------
+
+/**
+ * @brief Documented in header file
+ */
 IntMatrix& IntMatrix::operator=(const IntMatrix &other)
 {
 	if (this != &other) // in case of self assignment, just return the same object.
@@ -75,6 +103,9 @@ IntMatrix& IntMatrix::operator=(const IntMatrix &other)
 	return *this;
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix &IntMatrix::operator+=(const IntMatrix &other)
 {
 	int matrixArrayLength = _rows * _cols;
@@ -86,6 +117,9 @@ IntMatrix &IntMatrix::operator+=(const IntMatrix &other)
 	return *this;
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix &IntMatrix::operator-=(const IntMatrix &other)
 {
 	int matrixArrayLength = _rows * _cols;
@@ -97,6 +131,9 @@ IntMatrix &IntMatrix::operator-=(const IntMatrix &other)
 	return *this;
 }
 
+/**
+ * @brief Documented in header file
+ */
 IntMatrix &IntMatrix::operator*=(const IntMatrix &other)
 {
 	int *newMatrix = new int[_rows * other._cols];
@@ -104,7 +141,7 @@ IntMatrix &IntMatrix::operator*=(const IntMatrix &other)
 	{
 		for (int otherCol = 0; otherCol < other._cols; ++otherCol)
 		{
-			int dotProduct = 0;
+			int dotProduct = NONE;
 			for (int col = 0; col < _cols; ++col)
 			{
 				dotProduct += _matrix[(row * _cols) + col] * other._matrix[(col * other._cols) +
@@ -119,6 +156,9 @@ IntMatrix &IntMatrix::operator*=(const IntMatrix &other)
 	return *this;
 }
 
+/**
+ * @brief Documented in header file
+ */
 const IntMatrix IntMatrix::operator+(const IntMatrix &other)
 {
 	IntMatrix result = *this;
@@ -126,6 +166,9 @@ const IntMatrix IntMatrix::operator+(const IntMatrix &other)
 	return result;
 }
 
+/**
+ * @brief Documented in header file
+ */
 const IntMatrix IntMatrix::operator-(const IntMatrix &other)
 {
 	IntMatrix result = *this;
@@ -133,6 +176,9 @@ const IntMatrix IntMatrix::operator-(const IntMatrix &other)
 	return result;
 }
 
+/**
+ * @brief Documented in header file
+ */
 const IntMatrix IntMatrix::operator*(const IntMatrix &other)
 {
 	IntMatrix result = *this;
@@ -140,6 +186,33 @@ const IntMatrix IntMatrix::operator*(const IntMatrix &other)
 	return result;
 }
 
+/**
+ * @brief Documented in header file
+ */
+ostream& operator<<(ostream &os, const IntMatrix &matrix)
+{
+	os << endl;
+	for (int i = 0; i < matrix._rows; ++i)
+	{
+		for (int j = 0; j < matrix._cols; ++j)
+		{
+			const int LAST_ELEMENT = j < matrix._cols - 1;
+			os << matrix._matrix[i * matrix._cols + j];
+			if (j < LAST_ELEMENT)
+			{
+				os << " ";
+			}
+		}
+		os << endl;
+	}
+	return os;
+}
+
+//----------------------------------- methods ----------------------------------------------------
+
+/**
+ * @brief Documented in header file
+ */
 IntMatrix IntMatrix::trans()
 {
 	int *transposed = new int[_rows * _cols];
@@ -153,6 +226,9 @@ IntMatrix IntMatrix::trans()
 	return IntMatrix(_cols, _rows, transposed);
 }
 
+/**
+ * @brief Documented in header file
+ */
 int IntMatrix::trace()
 {
 	int theTrace = 0;
@@ -166,16 +242,18 @@ int IntMatrix::trace()
 	return theTrace;
 }
 
-ostream& operator<<(ostream &os, const IntMatrix &matrix) // fixme space in the end of matrix rows.
+/**
+ * @brief Documented in header file
+ */
+int IntMatrix::getRows()
 {
-	os << endl;
-	for (int i = 0; i < matrix._rows; ++i)
-	{
-		for (int j = 0; j < matrix._cols; ++j)
-		{
-			os << matrix._matrix[i * matrix._cols + j] << " ";
-		}
-		os << endl;
-	}
-	return os;
+	return _rows;
+}
+
+/**
+ * @brief Documented in header file
+ */
+int IntMatrix::getCols()
+{
+	return _cols;
 }

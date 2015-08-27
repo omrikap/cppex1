@@ -1,11 +1,20 @@
+// IntMatrixDriver.cpp
+
 #include <iostream>
 #include <stdlib.h>
 #include "IntMatrix.h"
 
+//------------------------------------------------------------------------------------------------
+// This file is a driver for the IntMatrix class.
+//------------------------------------------------------------------------------------------------
+
+//------------------------------- consts and defs ------------------------------------------------
+#define ARRAY_BEGINNING 0
+
 using namespace std;
 
 /**
- *
+ * @brief Enum for operator names that can be chosen by the user.
  */
 enum userChoice
 {
@@ -16,8 +25,11 @@ enum userChoice
 	TRACE
 };
 
+//---------------------------------- functions ---------------------------------------------------
+
 /**
- *
+ * @brief Print the result of matrix operation. Suitable for all of the operations, except from
+ * 		  Trace.
  */
 void printResult(const IntMatrix &result)
 {
@@ -25,7 +37,7 @@ void printResult(const IntMatrix &result)
 }
 
 /**
- *
+ * @brief Print the matrix got from the user while choosing unary operator.
  */
 void gotMatrix(IntMatrix &matrix)
 {
@@ -33,7 +45,7 @@ void gotMatrix(IntMatrix &matrix)
 }
 
 /**
- *
+ * @brief Print the error of wrong matrix dimensions.
  */
 void printDimensionsError(string op)
 {
@@ -41,7 +53,7 @@ void printDimensionsError(string op)
 }
 
 /**
- *
+ * @brief Print the matrices got by a bynary operator.
  */
 void binaryOperatorPrintMatrices(const IntMatrix &first, const IntMatrix &second)
 {
@@ -63,21 +75,24 @@ IntMatrix getMatrix()
 	cout << "Now insert the values of the matrix, row by row.\n"
 					"After each cell add the char ',' (including after the last cell of a row).\n"
 					"Each row should be in a separate line." << endl;
-	int index = 0;
+	int intIndex = ARRAY_BEGINNING;
 	int *matrixArray = new int[rows * cols];
-	string rowInput;
+
+	string givenRow;
 	const string DELIMITER = ",";
-	size_t delimiterPos = 0;
+
+	size_t delimiterPosition = ARRAY_BEGINNING;
 	for (int j = 0; j < rows; ++j)
 	{
-		cin >> rowInput;
+		cin >> givenRow;
 		string currentInt;
-		while ((delimiterPos = rowInput.find(DELIMITER)) != string::npos)
+		while ((delimiterPosition = givenRow.find(DELIMITER)) != string::npos)
 		{
-			currentInt = rowInput.substr(0, delimiterPos);
-			matrixArray[index] = atoi(&currentInt[0]); // atoi 'cause Cygwin doesn't support stoi
-			rowInput.erase(0, delimiterPos + DELIMITER.length());
-			index++;
+			currentInt = givenRow.substr(ARRAY_BEGINNING, delimiterPosition);
+			// atoi 'cause Cygwin doesn't support stoi
+			matrixArray[intIndex] = atoi(&currentInt[ARRAY_BEGINNING]);
+			givenRow.erase(ARRAY_BEGINNING, delimiterPosition + DELIMITER.length());
+			intIndex++;
 		}
 	}
 	return IntMatrix(rows, cols, matrixArray);
@@ -89,7 +104,7 @@ IntMatrix getMatrix()
 int mainMenu()
 {
 	cout << "Choose operation:\n1. add\n2. sub\n3. mul\n4. trans\n5. trace" << endl;
-	int choice = 0;
+	int choice;
 	cin >> choice;
 	while ((choice > 5) || (choice < 1))
 	{
@@ -100,6 +115,8 @@ int mainMenu()
 
 /**
  * @brief called when the user choose a binary operation from the main menu.
+ * @param op A string with the name of the operator.
+ * @param uc An int representing the user's choice.
  */
 void binaryFunction(string op, int uc)
 {
@@ -152,7 +169,9 @@ void binaryFunction(string op, int uc)
 }
 
 /**
- *
+ * @brief called when the user choose an unary operation from the main menu.
+ * @param op A string with the name of the operator.
+ * @param uc An int representing the user's choice.
  */
 void unaryFunction(string op, int uc)
 {
