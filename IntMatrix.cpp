@@ -196,7 +196,8 @@ ostream& operator<<(ostream &os, const IntMatrix &matrix)
 	{
 		for (int j = 0; j < matrix._cols; ++j)
 		{
-			const int LAST_ELEMENT = j < matrix._cols - 1;
+			const int LAST_ELEMENT = matrix._cols - 1;
+
 			os << matrix._matrix[i * matrix._cols + j];
 			if (j < LAST_ELEMENT)
 			{
