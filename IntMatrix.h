@@ -112,29 +112,22 @@ public:
 	 */
 	int trace();
 
-	int get_rows() const
+	/**
+	 * @brief rows getter.
+	 * @return int Number of rows.
+	 */
+	int getRows() const
 	{
 		return _rows;
 	}
 
-	void set_rows(int _rows)
-	{
-		IntMatrix::_rows = _rows;
-	}
-
-	int get_cols() const
+	/**
+	 * @brief cols getter.
+	 * @return int Number of rows.
+	 */
+	int getCols() const
 	{
 		return _cols;
-	}
-
-	void set_cols(int _cols)
-	{
-		IntMatrix::_cols = _cols;
-	}
-
-	int *get_matrix() const
-	{
-		return _matrix;
 	}
 
 private:

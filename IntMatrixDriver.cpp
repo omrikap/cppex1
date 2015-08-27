@@ -4,6 +4,9 @@
 
 using namespace std;
 
+/**
+ *
+ */
 enum userChoice
 {
 	ADD = 1,
@@ -13,21 +16,33 @@ enum userChoice
 	TRACE
 };
 
+/**
+ *
+ */
 void printResult(const IntMatrix &result)
 {
 	cout << "==========\nResulted matrix:\n" << result << endl;
 }
 
+/**
+ *
+ */
 void gotMatrix(IntMatrix &matrix)
 {
 	cout << "--------\ngot matrix:\n" << matrix << endl;
 }
 
+/**
+ *
+ */
 void printDimensionsError(string op)
 {
 	cout << "ERROR: " << op << " faild - different dimensions." << endl;
 }
 
+/**
+ *
+ */
 void binaryOperatorPrintMatrices(const IntMatrix &first, const IntMatrix &second)
 {
 	cout << "--------\nGot first matrix:\n" << first << endl;
@@ -98,7 +113,7 @@ void binaryFunction(string op, int uc)
 	switch (uc)
 	{
 		case ADD:
-			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
+			if (left.getRows() != right.getRows() || left.getCols() != right.getCols())
 			{
 				printDimensionsError(op);
 				return;
@@ -109,7 +124,7 @@ void binaryFunction(string op, int uc)
 			}
 			break;
 		case SUB:
-			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
+			if (left.getRows() != right.getRows() || left.getCols() != right.getCols())
 			{
 				printDimensionsError(op);
 				return;
@@ -120,7 +135,7 @@ void binaryFunction(string op, int uc)
 			}
 			break;
 		case MUL:
-			if (left.get_cols() != right.get_rows())
+			if (left.getCols() != right.getRows())
 			{
 				printDimensionsError(op);
 				return;
@@ -139,7 +154,7 @@ void binaryFunction(string op, int uc)
 /**
  *
  */
-void unaryFunction(string op, int uc) // todo update print
+void unaryFunction(string op, int uc)
 {
 	cout << "Operation " << op << " requires 1 operand matrix." << endl;
 	IntMatrix matrix = getMatrix();
@@ -153,7 +168,7 @@ void unaryFunction(string op, int uc) // todo update print
 			break;
 
 		case TRACE:
-			if (matrix.get_cols() != matrix.get_rows())
+			if (matrix.getCols() != matrix.getRows())
 			{
 				cout << "ERROR: trace faild - The matrix isn't square." << endl;
 				return;
@@ -166,6 +181,10 @@ void unaryFunction(string op, int uc) // todo update print
 	}
 }
 
+/**
+ * @brief the main function of the IntMatrix class driver.
+ * @return int 0 if all went well.
+ */
 int main()
 {
 	int choice = mainMenu();
