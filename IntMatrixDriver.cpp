@@ -43,9 +43,9 @@ void binaryOperatorPrintMatrices(const IntMatrix &first, const IntMatrix &second
 IntMatrix getMatrix()
 {
 	int rows, cols;
-	cout << "number of rows:" << endl;
+	cout << "number of rows:";
 	cin >> rows;
-	cout << "number of columns:" << endl;
+	cout << "number of columns:";
 	cin >> cols;
 	cout << "Now insert the values of the matrix, row by row.\n"
 					"After each cell add the char ',' (including after the last cell of a row).\n"
@@ -90,7 +90,7 @@ int mainMenu()
  */
 void binaryFunction(string op, int uc)
 {
-	cout << "Operation " << op << " requires 2 operand matrices.\nInsert first matrix:" << endl;
+	cout << "Operation " << op << " requires 2 operand matrices." << endl;
 	cout << "Insert first matrix:" << endl;
 	IntMatrix left = getMatrix();
 	cout << "Insert second matrix:" << endl;
@@ -103,6 +103,7 @@ void binaryFunction(string op, int uc)
 			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
 			{
 				printDimensionsError(op);
+				return;
 			}
 			else
 			{
@@ -113,6 +114,7 @@ void binaryFunction(string op, int uc)
 			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
 			{
 				printDimensionsError(op);
+				return;
 			}
 			else
 			{
@@ -123,6 +125,7 @@ void binaryFunction(string op, int uc)
 			if (left.get_cols() != right.get_rows())
 			{
 				printDimensionsError(op);
+				return;
 			}
 			else
 			{
@@ -155,6 +158,7 @@ void unaryFunction(string op, int uc) // todo update print
 			if (matrix.get_cols() != matrix.get_rows())
 			{
 				cout << "ERROR: trace faild - The matrix isn't square." << endl;
+				return;
 			}
 			else
 			{
