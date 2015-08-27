@@ -8,8 +8,8 @@ main: IntMakeMainDriver
 
 all: IntMatrixDriver tar
 
-IntMatrixMainDriver: IntMatrix.o IntMatrixDriver.cpp
-	$(CPPC) $(FLAGS) IntMatrix.o IntMatrixDriver.cpp -o IntMatrixMainDriver
+IntMatrixMainDriver: IntMatrix IntMatrixDriver.cpp
+	$(CPPC) $(FLAGS) IntMatrix.cpp IntMatrixDriver.cpp -o IntMatrixMainDriver
 
 IntMatrix: IntMatrix.cpp IntMatrix.h
 	$(CPPC) $(FLAGS) -c IntMatrix.cpp -o IntMatrix.o
