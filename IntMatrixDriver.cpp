@@ -1,14 +1,29 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <sstream>
 #include "IntMatrix.h"
 #ifdef NDEBUG
 
 using namespace std;
 
+enum userChoice
+{
+	ADD = 1,
+	SUB,
+	MUL,
+	TRANS,
+	TRACE
+};
+
 void printResult(const IntMatrix &result)
 {
 	cout << "==========\nResulted matrix:" << result << endl;
+}
+
+void printDimensionsError(string op)
+{
+	cout << "ERROR: " << op << " faild - different dimensions." << endl;
 }
 
 void binaryOperatorPrintMatrices(const IntMatrix &first, const IntMatrix &second)
@@ -34,17 +49,25 @@ IntMatrix getMatrix()
 	int index = 0;
 	int *matrixArray = new int[rows * cols];
 	string rowInput;
+	const string DELIMITER = ",";
+	size_t delimiterPos = 0;
 	for (int j = 0; j < rows; ++j)
 	{
 		cin >> rowInput;
-		for (int i = 0; i < (cols * 2); ++i)
+		string currentInt;
+		while ((delimiterPos = rowInput.find(DELIMITER)) != string::npos)
 		{
-			if (rowInput[i] != ',')
-			{
-				matrixArray[index] = atoi(&rowInput[i]); // atoi 'cause Cygwin doesn't support stoi
-
-				index++;
-			}
+			currentInt = rowInput.substr(0, delimiterPos);
+			matrixArray[index] = stoi(currentInt); // atoi 'cause Cygwin doesn't support stoi
+			rowInput.erase(0, delimiterPos + DELIMITER.length());
+			index++;
+//		for (int i = 0; i < (cols * 2); ++i)
+//		{
+//			if (rowInput[i] != ',') // fixme can't get ints larger than one digit.
+//			{
+//				matrixArray[index] = atoi(&rowInput[i]); // atoi 'cause Cygwin doesn't support stoi
+//
+//			}
 		}
 	}
 	return IntMatrix(rows, cols, matrixArray);
@@ -68,13 +91,47 @@ int mainMenu()
 /**
  * @brief called when the user choose a binary operation from the main menu.
  */
-void binaryFunction()
+void binaryFunction(string op, int uc)
 {
-	cout << "Operation add requires 2 operand matrices.\nInsert first matrix:" << endl;
+	cout << "Operation " << op << " requires 2 operand matrices.\nInsert first matrix:" << endl;
 	IntMatrix left = getMatrix();
 	IntMatrix right = getMatrix();
-	IntMatrix result = left + right;
-	cout << left << endl;
+	IntMatrix result = IntMatrix();
+	switch (uc)
+	{
+		case ADD:
+			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
+			{
+				printDimensionsError(op);
+			}
+			else
+			{
+				result = left + right;
+			}
+			break;
+		case SUB:
+			if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
+			{
+				printDimensionsError(op);
+			}
+			else
+			{
+				result = left - right;
+			}
+			break;
+		case MUL:
+			if (left.get_cols() != right.get_rows())
+			{
+				printDimensionsError(op);
+			}
+			else
+			{
+				result = left * right;
+			}
+			break;
+		default:
+			break; //fixme
+	}
 	binaryOperatorPrintMatrices(left, right);
 	printResult(result);
 }
@@ -82,22 +139,59 @@ void binaryFunction()
 /**
  *
  */
-void unaryFunction()
+void unaryFunction(string op, int uc) // todo update print
 {
-	cout << "Operation add requires 2 operand matrices.\nInsert first matrix:" << endl;
-	IntMatrix left = getMatrix();
-	IntMatrix right = getMatrix();
-	IntMatrix result = left + right;
-	cout << left << endl;
-	binaryOperatorPrintMatrices(left, right);
+	cout << "Operation " << op << " requires 1 operand matrix.\nInsert first matrix:" << endl;
+	IntMatrix matrix = getMatrix();
+	IntMatrix result = IntMatrix();
+	switch (uc)
+	{
+		case TRANS:
+			result = matrix.trans();
+			printResult(result);
+			break;
+
+		case TRACE:
+			if (matrix.get_cols() != matrix.get_rows())
+			{
+				cout << "ERROR: trace faild - The matrix isn't square." << endl;
+			}
+			else
+			{
+				int intResult = matrix.trace();
+				cout << intResult << endl;
+			}
+			break;
+
+//		default:
+//			break; // fixme
+	}
 	printResult(result);
 }
 
 int main()
 {
-	mainMenu();
-
-	binaryFunction();
+	int choice = mainMenu();
+	switch (choice)
+	{
+		case ADD:
+			binaryFunction("add", ADD);
+			break;
+		case SUB:
+			binaryFunction("sub", SUB);
+			break;
+		case MUL:
+			binaryFunction("mul", MUL);
+			break;
+		case TRANS:
+			unaryFunction("transpose", TRANS);
+			break;
+		case TRACE:
+			unaryFunction("trace", TRACE);
+			break;
+//		default:
+//			break; // fixme
+	}
 	return 0;
 }
 
