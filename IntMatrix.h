@@ -1,6 +1,11 @@
 #ifndef EX1_INTMATRIX_H
 #define EX1_INTMATRIX_H
+
+#include <iosfwd>
+
 #define NDEBUG //todo remove
+
+using namespace std;
 
 /**
  * A class that represent a matrix of integers.
@@ -89,6 +94,11 @@ public:
 	 * @param other The matrix on the right of the '*'.
 	 */
 	const IntMatrix operator*(const IntMatrix &other);
+
+	/**
+	 * @brief
+	 */
+	friend ostream& operator<<(ostream &os, const IntMatrix &matrix);
 
 	/**
 	 * @brief Transpose an IntMatrix.

@@ -8,7 +8,6 @@ IntMatrix::IntMatrix()
 	_rows = 0;
 	_cols = 0;
 	_matrix = nullptr;
-	cout << "++ a new matrix" << endl;
 }
 
 IntMatrix::IntMatrix(const int rows, const int cols)
@@ -168,6 +167,20 @@ int IntMatrix::trace()
 	return theTrace;
 }
 
+ostream& operator<<(ostream &os, const IntMatrix &matrix) // fixme space in the end of matrix rows.
+{
+	os << endl;
+	for (int i = 0; i < matrix._rows; ++i)
+	{
+		for (int j = 0; j < matrix._cols; ++j)
+		{
+			os << matrix._matrix[i * matrix._cols + j] << " ";
+		}
+		os << endl;
+	}
+	return os;
+}
+
 // ---------------------------------- unit-testing --------------------------------------
 
 #ifndef NDEBUG
@@ -204,25 +217,31 @@ int main()
 
 	IntMatrix& Sr = *S1;
 	cout << "----------------------------" << endl;
-	printMatrix(*S1);
+//	printMatrix(*S1);
+	cout << *S1 << endl;
 	cout << "----------------------------" << endl;
-	printMatrix(*S2);
+//	printMatrix(*S2);
 	cout << "----------------------------" << endl;
-	printMatrix(Sr);
+//	printMatrix(Sr);
 	*S1 *= *S2;
 	cout << "----------------------------" << endl;
-	printMatrix(*S1);
+//	printMatrix(*S1);
 	cout << "the trace of S1: " << S1->trace() << endl;
 	cout << "----------------------------" << endl;
 //	IntMatrix *transposed = new IntMatrix();
 //	cout << "----------------------------" << endl;
 	IntMatrix transposed = Sr.trans();
 	cout << "----------------------------" << endl;
-	printMatrix(transposed);
+//	printMatrix(transposed);
+	cout << "----------------------------" << endl;
+	cout << transposed << endl;
+	IntMatrix sum = *S1 + *S2;
+	cout << sum << endl;
 	cout << "----------------------------" << endl;
 	delete S1;
 	delete S2;
 	delete &transposed;
+	delete &sum;
 
 	return 0;
 }
