@@ -18,7 +18,7 @@ enum userChoice
 
 void printResult(const IntMatrix &result)
 {
-	cout << "==========\nResulted matrix:" << result << endl;
+	cout << "==========\nResulted matrix:\n" << result << endl;
 }
 
 void printDimensionsError(string op)
@@ -58,7 +58,7 @@ IntMatrix getMatrix()
 		while ((delimiterPos = rowInput.find(DELIMITER)) != string::npos)
 		{
 			currentInt = rowInput.substr(0, delimiterPos);
-			matrixArray[index] = stoi(currentInt); // atoi 'cause Cygwin doesn't support stoi
+			matrixArray[index] = atoi(&currentInt[0]); // atoi 'cause Cygwin doesn't support stoi
 			rowInput.erase(0, delimiterPos + DELIMITER.length());
 			index++;
 //		for (int i = 0; i < (cols * 2); ++i)
