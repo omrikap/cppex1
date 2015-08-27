@@ -6,10 +6,10 @@ FLAGS = -Wall -Wextra
 # when calling make with no arguments
 main: IntMakeMainDriver
 
-all: IntMatrixDriver tar
+all: IntMatrixMainDriver tar
 
 IntMatrixMainDriver: IntMatrix IntMatrixDriver.cpp
-	$(CPPC) $(FLAGS) IntMatrix.cpp IntMatrixDriver.cpp -o IntMatrixMainDriver
+	$(CPPC) $(FLAGS) IntMatrix.o IntMatrixDriver.cpp -o IntMatrixMainDriver
 
 IntMatrix: IntMatrix.cpp IntMatrix.h
 	$(CPPC) $(FLAGS) -c IntMatrix.cpp -o IntMatrix.o
