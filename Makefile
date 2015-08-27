@@ -12,7 +12,7 @@ IntMatrix: IntMatrix.cpp IntMatrix.h
 tar: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
 	tar cvf ex1.tar IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
 
-all: IntMatrix IntMatrixDriver tar
+all: IntMatrixDriver tar
 
 # when calling make with no arguments
 main: IntMakeMainDriver
