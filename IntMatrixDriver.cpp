@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <sstream>
 #include "IntMatrix.h"
-#ifdef NDEBUG
 
 using namespace std;
 
@@ -61,13 +60,6 @@ IntMatrix getMatrix()
 			matrixArray[index] = atoi(&currentInt[0]); // atoi 'cause Cygwin doesn't support stoi
 			rowInput.erase(0, delimiterPos + DELIMITER.length());
 			index++;
-//		for (int i = 0; i < (cols * 2); ++i)
-//		{
-//			if (rowInput[i] != ',') // fixme can't get ints larger than one digit.
-//			{
-//				matrixArray[index] = atoi(&rowInput[i]); // atoi 'cause Cygwin doesn't support stoi
-//
-//			}
 		}
 	}
 	return IntMatrix(rows, cols, matrixArray);
@@ -94,7 +86,9 @@ int mainMenu()
 void binaryFunction(string op, int uc)
 {
 	cout << "Operation " << op << " requires 2 operand matrices.\nInsert first matrix:" << endl;
+	cout << "Insert first matrix:" << endl;
 	IntMatrix left = getMatrix();
+	cout << "Insert second matrix:" << endl;
 	IntMatrix right = getMatrix();
 	IntMatrix result = IntMatrix();
 	switch (uc)
@@ -194,5 +188,3 @@ int main()
 	}
 	return 0;
 }
-
-#endif // NDEBUG

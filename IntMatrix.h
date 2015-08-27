@@ -3,8 +3,6 @@
 
 #include <iosfwd>
 
-#define NDEBUG //todo remove
-
 using namespace std;
 
 /**
