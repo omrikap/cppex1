@@ -1,7 +1,5 @@
 #include <iostream>
-#include <string>
 #include <stdlib.h>
-#include <sstream>
 #include "IntMatrix.h"
 
 using namespace std;
