@@ -147,10 +147,10 @@ IntMatrix IntMatrix::trans()
 	{
 		for (int col = 0; col < _cols; ++col)
 		{
-			transposed[(col * _cols) + row] = _matrix[(row * _cols) + col];
+			transposed[(col * _rows) + row] = _matrix[(row * _cols) + col];
 		}
 	}
-	IntMatrix *result = new IntMatrix(_rows, _cols, transposed);
+	IntMatrix *result = new IntMatrix(_cols, _rows, transposed);
 	return *result;
 }
 
