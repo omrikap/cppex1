@@ -152,15 +152,13 @@ void unaryFunction(string op, int uc) // todo update print
 			}
 			else
 			{
-				int intResult = matrix.trace();
-				cout << intResult << endl;
+				cout << "The matrix is square and its trace is " << matrix.trace() << endl;
 			}
 			break;
 
 //		default:
 //			break; // fixme
 	}
-	printResult(result);
 }
 
 int main()
@@ -178,7 +176,7 @@ int main()
 			binaryFunction("mul", MUL);
 			break;
 		case TRANS:
-			unaryFunction("transpose", TRANS);
+			unaryFunction("trans", TRANS);
 			break;
 		case TRACE:
 			unaryFunction("trace", TRACE);
