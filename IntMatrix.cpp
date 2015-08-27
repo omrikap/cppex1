@@ -150,8 +150,7 @@ IntMatrix IntMatrix::trans()
 			transposed[(col * _rows) + row] = _matrix[(row * _cols) + col];
 		}
 	}
-	IntMatrix *result = new IntMatrix(_cols, _rows, transposed);
-	return *result;
+	return IntMatrix(_cols, _rows, transposed);
 }
 
 int IntMatrix::trace()
