@@ -206,6 +206,13 @@ ostream& operator<<(ostream &os, const IntMatrix &matrix)
 		}
 		os << endl;
 	}
+
+	// print an empty line if the matrix is of size 0x0
+	if ((matrix._rows * matrix._cols) == 0)
+	{
+		os << endl;
+	}
+
 	return os;
 }
 
