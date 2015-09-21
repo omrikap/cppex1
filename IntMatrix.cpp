@@ -111,9 +111,7 @@ IntMatrix &IntMatrix::operator+=(const IntMatrix &other)
 	int matrixArrayLength = _rows * _cols;
 	for (int i = 0; i < matrixArrayLength; ++i)
 	{
-		cout << "before: " << _matrix[i] << endl;
 		_matrix[i] += other._matrix[i];
-		cout << "after: " << _matrix[i] << endl;
 	}
 
 	return *this;
