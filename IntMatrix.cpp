@@ -85,16 +85,16 @@ IntMatrix& IntMatrix::operator=(const IntMatrix &other)
 			if ((other._rows * other._cols) != (this->_rows * this->_cols))
 			{
 				delete[] _matrix;
-				_matrix = new int[other._rows * other._rows];
+				_matrix = new int[other._rows * other._cols];
 			}
 		}
 		else
 		{
-			_matrix = new int[other._rows * other._rows];
+			_matrix = new int[other._rows * other._cols];
 		}
 		this->_rows = other._rows;
 		this->_cols = other._cols;
-		int matrixArrayLength = other._rows * other._rows;
+		int matrixArrayLength = other._rows * other._cols;
 		for (int i = 0; i < matrixArrayLength; ++i)
 		{
 			_matrix[i] = other._matrix[i];
@@ -111,7 +111,9 @@ IntMatrix &IntMatrix::operator+=(const IntMatrix &other)
 	int matrixArrayLength = _rows * _cols;
 	for (int i = 0; i < matrixArrayLength; ++i)
 	{
+		cout << "before: " << _matrix[i] << endl;
 		_matrix[i] += other._matrix[i];
+		cout << "after: " << _matrix[i] << endl;
 	}
 
 	return *this;
