@@ -49,7 +49,7 @@ void gotMatrix(IntMatrix &matrix)
  */
 void printDimensionsError(string op)
 {
-	cout << "ERROR: " << op << " faild - different dimensions." << endl;
+	cout << "Error: " << op << " failed - different dimensions." << endl;
 }
 
 /**
@@ -189,7 +189,7 @@ void unaryFunction(string op, int uc)
 		case TRACE:
 			if (matrix.getCols() != matrix.getRows())
 			{
-				cout << "ERROR: trace faild - The matrix isn't square." << endl;
+				cout << "Error: trace failed - The matrix isn't square." << endl;
 				return;
 			}
 			else
