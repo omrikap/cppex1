@@ -1,13 +1,7 @@
 CPPC = g++ -std=c++11
 FLAGS = -Wall -Wextra
 
-.PHONY: tar all clean main IntMatrix valgrind
-
-# when calling make with no arguments
-main: IntMatrixMainDriver
-
-# create all the options this Makefile support, except from "clean"
-all: IntMatrix IntMatrixMainDriver tar
+.PHONY: tar all clean IntMatrix valgrind
 
 # create the program to test the IntMatrix class.
 IntMatrixMainDriver: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp
@@ -20,6 +14,9 @@ IntMatrix: IntMatrix.cpp IntMatrix.h
 # create the tar file for he submission.
 tar: IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
 	tar cvf ex1.tar IntMatrix.cpp IntMatrix.h IntMatrixDriver.cpp Makefile
+
+# create all the options this Makefile support, except from "clean"
+all: IntMatrix IntMatrixMainDriver tar
 
 # clean all files created by make.
 clean:
